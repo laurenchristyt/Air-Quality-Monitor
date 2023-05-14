@@ -1,13 +1,17 @@
-;------------------------
-; Assembly Code
-;------------------------
 #define __SFR_OFFSET 0x00
 #include "avr/io.h"
 ;------------------------
 .global init_ADC
 .global init_serial
 .global print_ADC
+.global main
 ;=======================================================================
+main:
+    RCALL init_ADC
+    RCALL init_serial
+    RCALL print_ADC
+    RJMP main
+    RET
 init_ADC:
     SBI   DDRC, 0         ;set pin PC0 as i/p for ADC0
     LDI   R20, 0xC0       ;internal 2.56V, right-justified data, ADC0
