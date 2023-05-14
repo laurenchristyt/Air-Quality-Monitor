@@ -32,7 +32,7 @@ w3: SBIC  PIND, 7
     RCALL DHT11_reading
     RCALL DHT11_reading ;read temp (3rd byte of 40-bit data)
 ;-----------------------------------------------------------------
-;convert temp & humidity bytes to decimal & display on MAX7219
+;convert temp & humidity bytes to decimal & display on Serial Monitor
 ;-------------------------------------------------------------
     MOV   R28, R24
     LDI   R29, 0x07
@@ -199,7 +199,6 @@ l12: LDS R17, UCSR0A
 ;-----------------------------------------------------------------
     RCALL delay_sec ;1 second delay
     RJMP print_ADC
-
 ;=====================================================================
 A_F_MSD:
     ADD R16, R24 ;add 7 to byte to get ASCII chars A to F
@@ -229,10 +228,10 @@ l80:  CPI   R28, 10         ;compare R28 with 10
     ;--------------------------------------------------------  
 dsp:  MOV   R18, R27
     MOV   R17, R29        ;select digit
-    RCALL send_bytes      ;send command & data to MAX7219
+    RCALL print_ADC      ;send command & data to Serial Monitor
     ;--------------------------------------------------------
     MOV   R18, R28
     MOV   R17, R30        ;select digit
-    RCALL send_bytes      ;send command & data to MAX7219    
+    RCALL print_ADC      ;send command & data to Serial Monitor    
     ;--------------------------------------------------------
     RET
