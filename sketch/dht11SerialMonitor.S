@@ -4,9 +4,9 @@
 #define __SFR_OFFSET 0x00
 #include "avr/io.h"
 ;------------------------
-.global DHT11_sensor
+.global main
 ;=================================================================
-DHT11_sensor:
+main:
 ;-----------------------------------------------------------------
 agn:RCALL delay_2s      ;wait 2s for DHT11 to get ready
 ;-----------------------------------------------------------------
@@ -35,14 +35,14 @@ w3: SBIC  PIND, 7
 ;convert temp & humidity bytes to decimal & display on Serial Monitor
 ;-------------------------------------------------------------
     MOV   R28, R24
-    LDI   R29, 0x07
-    LDI   R30, 0x06
+    LDI   R17, 0x07
+    LDI   R18, 0x06
     ;-------------------
     RCALL binary2decimal  ;temp in decimal
     ;-------------------
     MOV   R28, R25
-    LDI   R29, 0x02
-    LDI   R30, 0x01
+    LDI   R17, 0x02
+    LDI   R18, 0x01
     ;-------------------
     RCALL binary2decimal  ;humidity in decimal
     ;-------------------
@@ -197,7 +197,6 @@ l12: LDS R17, UCSR0A
     LDI R18, 0x0D
     STS UDR0, R18 ;print carriage return on serial monitor
 ;-----------------------------------------------------------------
-    RCALL delay_sec ;1 second delay
     RJMP print_ADC
 ;=====================================================================
 A_F_MSD:
@@ -227,8 +226,8 @@ l80:  CPI   R28, 10         ;compare R28 with 10
     RJMP  l80
     ;--------------------------------------------------------  
 dsp:  MOV   R18, R27
-    MOV   R17, R29        ;select digit
-    RCALL print_ADC      ;send command & data to Serial Monitor
+    MOV   R17, R17        ;select digit
+    RCALL print_ADC     ;send command & data to Serial Monitor
     ;--------------------------------------------------------
     MOV   R18, R28
     MOV   R17, R30        ;select digit
