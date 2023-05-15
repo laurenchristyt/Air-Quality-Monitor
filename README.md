@@ -6,7 +6,21 @@ A smart home air quality monitor using Arduino and assembly language that helps 
 Arduino IDE -> utilized to compile and upload the program onto the Arduino board through a USB type B cable.
 Proteus -> utilized to simulate and verify the circuit design.
 AVR Assembly -> The program is entirely coded in AVR Assembly language and has been developed and solely tested on the Arduino UNO R3 board with the ATMega328p processor.
+
+## How To Use 
+To get started with the Air Quality Monitor project, follow these steps:
+
+1. Connect all the required hardware as shown in the flowchart
+2. Clone the repository using the command: 
+>git clone https://github.com/laurenchristyt/Proyek-Akhir-SSF-Kelompok-B11.git
+3. Open the "Proyek-Akhir-SSF-Kelompok-11" folder using the Arduino IDE.
+4. Connect the Arduino board to your computer using a USB type A to type B cable.
+5. Check the COM port (Windows) or /dev/ttyUSB0 (Ubuntu) to confirm that the board has been successfully connected.
+6. Set the board type to Arduino UNO.
+7. Finally, upload the code by clicking on the arrow key icon next to the checklist icon.
+
 ## Hardware
+
 ### 1. Arduino UNO R3
  A microcontroller board based on the ATmega328P that provides digital and analog I/O pins and can be programmed to control various electronic devices.
 ![image](https://github.com/laurenchristyt/Proyek-Akhir-SSF-Kelompok-B11/assets/113244831/1b8f3e84-63e0-48c1-8061-685df2be2632)
