@@ -15,7 +15,7 @@ main:
 loop:
     RCALL MAX7219_disp_text
     RCALL DHT11_sensor
-RET
+    ;-------------------------------------------------------------------
     SBRS DDRB, 1
     SBI DDRB, 1           ;set pin PB1 as o/p for buzzer
     RJMP main
@@ -273,7 +273,7 @@ wait_ADC:
     ;-----------------------------------------------------------------
 l9: LDS   R17, UCSR0A
     SBRS  R17, UDRE0      ;test data buffer if data can be sent
-    RJMP  l1
+    RJMP  l9
     ;-----------------------------------------------------------------
     STS   UDR0, R25       ;print ADC MSD on serial monitor
     ;-----------------------------------------------------------------
@@ -287,7 +287,7 @@ l9: LDS   R17, UCSR0A
     ;-----------------------------------------------------------------
 l10: LDS   R17, UCSR0A
     SBRS  R17, UDRE0      ;test data buffer if data can be sent
-    RJMP  l2
+    RJMP  l10
     ;-----------------------------------------------------------------
     STS   UDR0, R16       ;print ADC mid digit on serial monitor
     MOV   R19, R16
@@ -301,20 +301,20 @@ l10: LDS   R17, UCSR0A
     ;-----------------------------------------------------------------
 l11: LDS   R17, UCSR0A
     SBRS  R17, UDRE0      ;test data buffer if data can be sent
-    RJMP  l3
+    RJMP  l11
     ;-----------------------------------------------------------------
     STS   UDR0, R16       ;print ADC LSD on serial monitor
     ;-----------------------------------------------------------------   
 l12: LDS   R17, UCSR0A
     SBRS  R17, UDRE0      ;test data buffer if data can be sent
-    RJMP  l4
+    RJMP  l12
     ;-----------------------------------------------------------------
     LDI   R18, 0x0A
     STS   UDR0, R18       ;print newline on serial monitor    
     ;-----------------------------------------------------------------
 l13: LDS   R17, UCSR0A
     SBRS  R17, UDRE0      ;test data buffer if data can be sent
-    RJMP  l5
+    RJMP  l13
     ;-----------------------------------------------------------------
     LDI   R18, 0x0D
     STS   UDR0, R18       ;print carriage return on serial monitor    
@@ -328,22 +328,22 @@ l13: LDS   R17, UCSR0A
 ;=====================================================================
 A_F_MSD:
     ADD   R16, R24        ;add 7 to byte to get ASCII chars A to F
-    RJMP  l2
+    RJMP  l10
 ;---------------------------------------------------------------------
 A_F_LSD:
     ADD   R16, R24        ;add 7 to byte to get ASCII chars A to F
-    RJMP  l3
+    RJMP  l11
 ;---------------------------------------------------------------------
 delay_sec:                ;1s delay
     LDI   R20, 255
 l14: LDI   R21, 255
 l15: LDI   R22, 80
 l16: DEC   R22
-    BRNE  l8
+    BRNE  l16
     DEC   R21
-    BRNE  l7
+    BRNE  l15
     DEC   R20
-    BRNE  l6
+    BRNE  l14
     RET
 ;----------------------------------------------------------------------
 bunyi:
