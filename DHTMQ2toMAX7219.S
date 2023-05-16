@@ -273,7 +273,7 @@ wait_ADC:
     ;-----------------------------------------------------------------
 l9: LDS   R17, UCSR0A
     SBRS  R17, UDRE0      ;test data buffer if data can be sent
-    RJMP  l1
+    RJMP  l9
     ;-----------------------------------------------------------------
     STS   UDR0, R25       ;print ADC MSD on serial monitor
     ;-----------------------------------------------------------------
@@ -339,11 +339,11 @@ delay_sec:                ;1s delay
 l14: LDI   R21, 255
 l15: LDI   R22, 80
 l16: DEC   R22
-    BRNE  l8
+    BRNE  l16
     DEC   R21
-    BRNE  l7
+    BRNE  l15
     DEC   R20
-    BRNE  l6
+    BRNE  l14
     RET
 ;----------------------------------------------------------------------
 bunyi:
