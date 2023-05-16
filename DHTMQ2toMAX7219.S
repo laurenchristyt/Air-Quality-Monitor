@@ -16,7 +16,7 @@ loop:
     RCALL MAX7219_disp_text
     RCALL DHT11_sensor
     ;-------------------------------------------------------------------
-    SBRS DDRB, 1
+l1: SBRS DDRB, 1
     SBI DDRB, 1           ;set pin PB1 as o/p for buzzer
     RJMP main
 ;=======================================================================
@@ -61,7 +61,7 @@ w3: SBIC  PIND, 7
     ;-------------------
     RCALL binary2decimal  ;humidity in decimal
     ;-------------------
-    RJMP  agn           ;go back & get another sensor reading
+    RJMP  l1           ;go back & get another sensor reading
 ;=================================================================
 DHT11_reading:
     LDI   R16, 8        ;set counter for receiving 8 bits
@@ -323,7 +323,7 @@ l13: LDS   R17, UCSR0A
     BRLO  kaga       ; Branch ke 'mati' jika R16 lebih rendah dari 70
     CPI   R19, 70    ; Compare immediate hasil high-byte dengan 70
     BRSH  bunyi      ; Branch ke 'bunyi' jika R16 lebih tinggi dari atau sama dengan 70
-    RCALL delay_sec  ;1 second delay  
+l17:RCALL delay_sec  ;1 second delay  
     RET
 ;=====================================================================
 A_F_MSD:
@@ -349,8 +349,8 @@ l16: DEC   R22
 bunyi:
     SBIS PORTB, 1
     SBI PORTB, 1
-    RET
+    RJMP l17
 ;----------------------------------------------------------------------
 kaga:
     CBI PORTB, 1
-    RET
+    RJMP l17
